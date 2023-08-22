@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iniciação Científica Fiap</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="../static/css/style.css">
+
+</head>
+
+<body data-bs-theme="light">
+  <header>
+    <nav class=" navbar-expand-lg navbar bg-body-tertiary fixed-top ">
+      <div class="container-fluid">
+        <a class="navbar-brand logo fw-bold" href="#">VisualScan</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Sobre</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Perfil Médio</a>
+              </li>
+
+              <li class="nav-item">
+
+                <a class="nav-link" href="#">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="modo-noturno">
+                    <label class="form-check-label" for="modo-noturno">Modo noturno</label>
+                  </div>
+                </a>
+              </li>
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="banners banner-1 d-flex flex-column justify-content-center text-center">
+      <div class="banners-titulo bg-body-secondary py-5">
+        <h2 class="fw-bold">Descubra suas características e seus atributos físicos e se surpreenda com os resultados.</h2>
+        <p>Boas-vindas ao VisualScan.</p>
+      </div>
+    </section>
+
+    <section class="py-5">
+      <h2 class="text-center fw-bold pb-1">Modelos</h2>
+      <p class="text-center">Busque uma foto de demonstração.</p>
+
+      <div class="container d-flex justify-content-around flex-wrap ">
+
+        <div class="card m-4  btn rounded border-0 botao-padrao" style="width: 20rem;">
+          <img src="../static/images/Foto1.png" class="card-img-top" alt="Mulher branca asiática com cabelo preto liso e blusa branca com o fundo bege.">
+        </div>
+
+        <div class="card m-4 btn rounded border-0 botao-padrao" style="width: 20rem;">
+          <img src="../static/images/Foto2.png" class="card-img-top " alt="Homem branco com cabelo preto e camiseta preta com o fundo bege.">
+        </div>
+
+        <div class="card m-4 btn rounded border-0 botao-padrao" style="width: 20rem;">
+          <img src="../static/images/Foto3.png" class="card-img-top " alt="Mulher negra com cabelo enrolado preto com um casaco verde e fundo cinza.">
+        </div>
+      </div>
+    </section>
+
+
+    <section class="py-5">
+
+      <h2 class="fw-bold text-center pb-1 ">Quais são as suas características?</h2>
+
+      <div class="row mx-0 justify-content-center">
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card border-0 mx-auto btn" style="width: 18rem;">
+            <img id="cameraPlaceholder" src="../static/images/Foto4.png" class="card-img-top rounded" alt="Câmera fotográfica com o fundo azul.">
+            <video id="cameraFeed" autoplay></video>
+                <canvas id="photoCanvas" style="display: none;"></canvas>
+    <img id="capturedPhoto" style="display: none;">
+            <div class="card-body">
+              <h3 id="captureButton" class="card-text text-center fw-bold">Fotografe seu rosto</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <br>
+    <h1 id="ageHolder">Idade: </h1>
+    <h1 id="genderHolder">Gênero: </h1>
+    <h1 id="raceDiv">Etnia</h1>
+
+    <section class="py-4 container ">
+      <div class="row">
+        <div class="col-10 col-xl-8 mx-auto">
+          <div class="border border-2 rounded p-3">
+            <h3 class="fw-bold p-3">Receba seu resultado!</h3>
+            <form id="contato">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingNome" placeholder="Nome">
+                <label for="floatingNome">Nome</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com">
+                <label fEmail>Email</label>
+              </div>
+              <label for="nivel-sastifacao" class="form-label ">Nível de sastifação:</label>
+              <input type="range" class="form-range input-range" id="nivel-sastifacao">
+              <button type="button" class="btn botao-padrao w-100  fw-bold mt-3 py-3">Enviar</button>
+          </div>
+          </form>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <footer class="text-center">
+      <div class=" p-3">
+        2023 <i class="bi bi-c-circle"></i> Desenvolvido por Alunos da Fiap| Projeto Iniciação Científica da Fiap.
+      </div>
+    </footer>
+
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+  <script src="../static/js/script.js"></script>
+
+</body>
+
+</html>

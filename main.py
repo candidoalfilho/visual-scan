@@ -1,4 +1,8 @@
-from flask import Flask
+import base64
+import io
+
+from PIL import Image
+from flask import Flask, render_template, jsonify
 from deepface import DeepFace
 import datetime
 
@@ -7,7 +11,7 @@ from flask import render_template, request, redirect, url_for, flash, send_from_
 from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'app/static/uploads'
+UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 app.config['SECRET_KEY'] = 'your_secret_key_here'
@@ -24,7 +28,6 @@ def upload_file():
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
-
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
@@ -43,7 +46,32 @@ def upload_file():
             print(f"Etnia: {objs[0]['dominant_race']}")
 
             return redirect(url_for('uploaded_file', filename=filename))
-    return render_template('upload.html')
+    return render_template('index.html')
+
+@app.route('/upload', methods=['POST'])
+def upload_photo():
+    photo = request.get_data(as_text=True)
+    photo_base64 = request.form.get('photo')
+    photo_data = base64.b64decode(photo_base64.split(',')[1])  # Remove o cabeçalho do Base64
+    path = os.path.join(app.config['UPLOAD_FOLDER'], 'teste1.png')
+    image = Image.open(io.BytesIO(photo_data))
+    image.save(path)
+
+    objs = DeepFace.analyze(img_path=path,
+                            actions=['age', 'gender', 'race', 'emotion'],
+                            enforce_detection=True
+                            )
+
+    print(f"A pessoa tem {objs[0]['age']} anos")
+    print(f"Gênero: {objs[0]['dominant_gender']}")
+    print(f"Etnia: {objs[0]['dominant_race']}")
+
+    # Salvar a foto ou fazer qualquer processamento necessário
+    # Retorna uma resposta em JSON para indicar sucesso
+
+    return jsonify({'message': 'Foto recebida com sucesso!','age':objs[0]['age'],'gender':objs[0]['dominant_gender'],'race':objs[0]['dominant_race']})
+
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
